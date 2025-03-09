@@ -85,7 +85,8 @@ def get_coder_response(formula_text, prompt):
 
 
 def process_md(file_path, prompt):
-    name = file_path.rsplit("/", maxsplit=1)[-1]
+    # name = file_path.rsplit("/", maxsplit=1)[-1]
+    name = os.path.basename(file_path)
     name = name.split(".")[0]
     print(f"---- processing {name} ----")
     try:
@@ -104,7 +105,7 @@ def process_md(file_path, prompt):
 
 
 def code_chat(path, prompt):
-    if not os.path.exists(path=path):
+    if not os.path.exists(path):
         return "input image folder path not exits."
 
     if os.path.isfile(path) and path.endswith(".md"):

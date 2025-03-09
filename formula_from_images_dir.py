@@ -137,7 +137,8 @@ def get_ocr_response(image_path):
 
 
 def process_image(file_path: str):
-    name = file_path.rsplit("/", maxsplit=1)[-1]
+    # name = file_path.rsplit("/", maxsplit=1)[-1]
+    name = os.path.basename(file_path)
     name = name.split(".")[0]
     print(f"---- processing {name} ----")
     try:
@@ -153,7 +154,7 @@ def process_image(file_path: str):
 
 
 def vl_chat_bot(path):
-    if not os.path.exists(path=path):
+    if not os.path.exists(path):
         return "input image folder path not exits."
 
     if os.path.isfile(path):
