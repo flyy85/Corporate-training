@@ -299,7 +299,9 @@ def get_funcation_call_response(query):
     ans = response.choices[0].message.content
     print(f"Funcation Call Response: {ans}")
     name_and_arguments = parse_function_parameters(ans)
-    func_name = name_and_arguments["name"]
+    func_name = name_and_arguments.get("name")
+    if func_name is None:
+        return ans
     for tool in tools:
         if tool["name"] == func_name:
             file_name = tool["filename"]
@@ -310,7 +312,8 @@ def get_funcation_call_response(query):
     return ans
 
 
-system_prompt = """You are an expert in composing functions. You are given a question and a set of possible functions. Based on the question, you will need to make one or more function/tool calls to achieve the purpose.
+system_prompt = """
+You are an expert in composing functions. You are given a question and a set of possible functions. Based on the question, you will need to make one or more function/tool calls to achieve the purpose.
 If none of the function can be used, point it out. If the given question lacks the parameters required by the function, also point it out.
 You should only return the function call in tools call sections.
 
