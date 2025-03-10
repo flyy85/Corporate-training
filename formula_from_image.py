@@ -16,11 +16,13 @@ warnings.filterwarnings("ignore")
 
 API_KEY = "Qwen/Qwen2.5-VL-3B-Instruct"
 BASE_URL = "http://192.168.0.80:7863/v1"
+MODEL_NAME = API_KEY
+
 ocr_client = OpenAI(
     api_key=API_KEY,
     base_url=BASE_URL,
 )
-IMAGE_BASE_URL = "http://image-server.s.webace-i3c.com"  # 根据你的服务器配置调整
+IMAGE_BASE_URL = "http://image-server.com"  # 图片服务器 endpoint
 
 
 def get_args():
@@ -141,7 +143,7 @@ def get_ocr_response(image, shouldConvert=False):
     ]
     print("filename: {}".format(filename))
     response = ocr_client.chat.completions.create(
-        model=API_KEY,
+        model=MODEL_NAME,
         messages=messages,
         temperature=0,
     )
@@ -188,9 +190,9 @@ with gr.Blocks(css=css) as demo:
     gr.HTML(
         """\
 <p align="center"><img src="https://modelscope.oss-cn-beijing.aliyuncs.com/resource/qwen.png" style="height: 60px"/><p>"""
-        """<center><font size=8>📖 Qwen2.5-Math Demo</center>"""
+        """<center><font size=8>📖 Qwen2.5-VL Demo</center>"""
         """\
-<center><font size=3>This WebUI is based on Qwen2-VL for OCR. You can input either images or texts of mathematical or arithmetic problems.</center>"""
+<center><font size=3>This WebUI is based on Qwen2.5-VL for formula image OCR.</center>"""
     )
     state = gr.State({"tab_index": 0})
     with gr.Row():

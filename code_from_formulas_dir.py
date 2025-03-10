@@ -14,6 +14,7 @@ warnings.filterwarnings("ignore")
 
 API_KEY = "Qwen/Qwen2.5-Coder-7B-Instruct"
 BASE_URL = "http://192.168.0.79:7862/v1"
+MODEL_NAME = API_KEY
 
 coder_client = OpenAI(
     api_key=API_KEY,
@@ -75,7 +76,7 @@ def get_coder_response(formula_text, prompt):
         },
     ]
     response = coder_client.chat.completions.create(
-        model=API_KEY,
+        model=MODEL_NAME,
         messages=messages,
         temperature=0,
     )
@@ -85,7 +86,6 @@ def get_coder_response(formula_text, prompt):
 
 
 def process_md(file_path, prompt):
-    # name = file_path.rsplit("/", maxsplit=1)[-1]
     name = os.path.basename(file_path)
     name = name.split(".")[0]
     print(f"---- processing {name} ----")
@@ -196,7 +196,7 @@ with gr.Blocks(css=css) as demo:
 <p align="center"><img src="https://modelscope.oss-cn-beijing.aliyuncs.com/resource/qwen.png" style="height: 60px"/><p>"""
         """<center><font size=8>📖 Qwen2.5-Coder Demo</center>"""
         """\
-<center><font size=3>This WebUI is based on Qwen2.5-Coder-7B-Instruct for formula operator.</center>"""
+<center><font size=3>This WebUI is based on Qwen2.5-Coder for formula operator implementation.</center>"""
     )
     state = gr.State({"tab_index": 0})
     with gr.Row():
