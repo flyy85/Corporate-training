@@ -6,8 +6,7 @@ import os
 import warnings
 from openai import OpenAI
 
-# import pdfplumber
-# from openai.types.chat import ChatCompletionChunk
+from utils import KNOWLEDGE_BASE
 
 # 忽视所有警告
 warnings.filterwarnings("ignore")
@@ -20,9 +19,8 @@ coder_client = OpenAI(
     api_key=API_KEY,
     base_url=BASE_URL,
 )
-OUTPUT_DIR = "knowledge_base"
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
+if not os.path.exists(KNOWLEDGE_BASE):
+    os.makedirs(KNOWLEDGE_BASE)
 
 
 def get_args():
@@ -94,8 +92,8 @@ def process_md(file_path, prompt):
             formula_text = f.read()
         python_code = get_coder_response(formula_text, prompt)
         # 写入本地文件
-        print(f"{OUTPUT_DIR}/{name}.py")
-        with open(f"{OUTPUT_DIR}/{name}.py", "w") as f:
+        print(f"{KNOWLEDGE_BASE}/{name}.py")
+        with open(f"{KNOWLEDGE_BASE}/{name}.py", "w") as f:
             f.write(python_code)
         yield python_code
 
@@ -204,7 +202,7 @@ with gr.Blocks(css=css) as demo:
             prompt = gr.Textbox(label="prompt", value=system_prompt)
             formula_path = gr.Textbox(
                 label="Input Formulas Dir Path(Edit directly)",
-                value=os.path.abspath(OUTPUT_DIR),
+                value=os.path.abspath(KNOWLEDGE_BASE),
             )
             with gr.Row():
                 with gr.Column():

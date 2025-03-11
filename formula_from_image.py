@@ -8,9 +8,6 @@ import warnings
 from openai import OpenAI
 import requests
 
-# import pdfplumber
-# from openai.types.chat import ChatCompletionChunk
-
 # 忽视所有警告
 warnings.filterwarnings("ignore")
 

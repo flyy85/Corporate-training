@@ -7,8 +7,7 @@ import warnings
 from openai import OpenAI
 import requests
 
-# import pdfplumber
-# from openai.types.chat import ChatCompletionChunk
+from utils import KNOWLEDGE_BASE
 
 # 忽视所有警告
 warnings.filterwarnings("ignore")
@@ -22,9 +21,8 @@ ocr_client = OpenAI(
     base_url=BASE_URL,
 )
 IMAGE_BASE_URL = "http://image-server.s.webace-i3c.com"  # 根据你的服务器配置调整
-OUTPUT_DIR = "knowledge_base"
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
+if not os.path.exists(KNOWLEDGE_BASE):
+    os.makedirs(KNOWLEDGE_BASE)
 
 
 def get_args():
@@ -145,7 +143,7 @@ def process_image(file_path: str):
     try:
         image_description = get_ocr_response(file_path)
         # 写入本地文件
-        with open(f"{OUTPUT_DIR}/{name}.md", "w") as f:
+        with open(f"{KNOWLEDGE_BASE}/{name}.md", "w") as f:
             f.write(image_description)
         yield image_description
 
