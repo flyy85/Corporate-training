@@ -2,6 +2,9 @@ from sentence_transformers import SentenceTransformer
 from utils import KNOWLEDGE_BASE
 import sqlite3
 import numpy as np
+import os
+
+os.environ['HF_ENDPOINT'] = "https://hf-mirror.com"
 
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
