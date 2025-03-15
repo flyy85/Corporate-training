@@ -4,7 +4,6 @@ from utils import KNOWLEDGE_BASE
 import sqlite3
 import numpy as np
 
-
 def read_all_md_files_from_knowledge_base():
     result = {}
     knowledge_base_path = KNOWLEDGE_BASE
